@@ -7,6 +7,8 @@ import Header from '@/components/molecules/Header';
 const bebasNeue = Bebas_Neue({
   variable: '--font-bebas-neue',
   weight: '400',
+  style: 'normal',
+  display: 'swap',
   subsets: ['latin'],
 });
 
