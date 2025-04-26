@@ -32,7 +32,7 @@ export default function MessageBubble({
       )}
       <div
         className={cn(
-          'p-2 rounded-lg w-fit h-fit max-w-[50%] break-words',
+          'p-2 rounded-lg w-fit h-fit max-w-[80%] md:max-w-[50%] break-words',
           isUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black',
           isLoading && 'animate-pulse bg-gray-300',
           isError && 'bg-red-500 text-white'
