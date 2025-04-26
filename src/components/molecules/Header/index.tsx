@@ -25,13 +25,7 @@ export default function Header() {
         <Link href="/chat">Bora conversar!</Link>
         {User ? (
           <Avatar
-            fallback={
-              User.displayName
-                ? `${User.displayName.charAt(0)}${User.displayName
-                    .split(' ')[1]
-                    .charAt(0)}`
-                : 'U'
-            }
+            fallback={User.displayName as string}
             alt="Foto do Usuário"
             src={User.photoURL as string}
           />
