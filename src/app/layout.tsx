@@ -3,6 +3,7 @@ import { Bebas_Neue, Rubik } from 'next/font/google';
 import './globals.css';
 import Head from 'next/head';
 import Header from '@/components/molecules/Header';
+import { UserProvider } from '@/context/user';
 
 const bebasNeue = Bebas_Neue({
   variable: '--font-bebas-neue',
@@ -34,8 +35,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="FuriaGG" />
       </Head>
       <body className={`${bebasNeue.variable} ${rubik.variable} antialiased`}>
-        <Header />
-        {children}
+        <UserProvider>
+          <Header />
+          {children}
+        </UserProvider>
       </body>
     </html>
   );
