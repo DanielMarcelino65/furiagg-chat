@@ -8,6 +8,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '@/services/firebase';
 import { useUser } from '@/context/user';
 import Avatar from '@/components/atoms/Avatar';
+import NextLink from 'next/link';
 
 export default function Header() {
   const { User } = useUser();
@@ -18,8 +19,16 @@ export default function Header() {
     });
   };
   return (
-    <header className="flex absolute z-50 top-0 items-center justify-between w-full pt-4 px-8 md:px-20 bg-black">
-      <Image width={70} height={70} src={FuriaLogo} alt="Logo da Furia" />
+    <header className="flex fixed z-50 top-0 items-center justify-between w-full py-4 px-8 md:px-20 bg-black">
+      <NextLink href="/">
+        <Image
+          className="hover:scale-[1.1] transition-all duration-150"
+          width={70}
+          height={70}
+          src={FuriaLogo}
+          alt="Logo da Furia"
+        />
+      </NextLink>
       <nav className="flex items-center space-x-4">
         <Link href="/">Home</Link>
         <Link href="/chat">Bora conversar!</Link>

@@ -8,12 +8,18 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const initialMessages: MessageBubbleProps[] = [
   {
-    text: 'Oi, tudo bem?aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    sender: 'User',
+    text: `🐾 Fala, guerreiro(a)! Bem-vindo(a) ao universo FÚRIA! 🖤🔥
+              
+              Aqui você vai bater um papo direto sobre o nosso time de CS, conhecer curiosidades, conquistas e histórias da Pantera! 
+              
+              ⚡ Importante: esta é uma simulação interativa criada para fãs. Algumas informações podem não refletir os dados oficiais em tempo real.
+              
+              Para saber tudo de forma oficial, confira também nossos canais e estatísticas atualizadas! 🎯
+              
+              Agora bora conversar e viver essa paixão pelo CS da FÚRIA! 🚀
+`,
+    sender: 'other',
   },
-  { text: 'Tudo sim! E você?', sender: 'other' },
-  { text: 'Também! Preparado pro projeto?', sender: 'User' },
-  { text: 'Claro, bora pra cima!', sender: 'other' },
 ];
 const recommendedQuestions = [
   'Qual é a escalação atual da FURIA CS?',
@@ -50,9 +56,9 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen relative bg-black">
-      <ScrollArea className="text-black h-[500px] bg-[#E7E7E7] rounded-lg shadow-lg">
-        <div className="flex flex-col w-[50vw] items-center h-full p-4">
+    <div className="flex flex-col md:items-center pt-24 justify-center w-full min-h-screen relative bg-black">
+      <ScrollArea className="text-black h-[85vh] w-[100vw] bg-[#E7E7E7] rounded-lg shadow-lg">
+        <div className="flex flex-col w-[90vw] md:w-[100vw] items-center h-full pt-4 px-2 lg:px-16">
           {messages.map((message, index) => (
             <MessageBubble
               key={index}
@@ -60,24 +66,27 @@ export default function Chat() {
               sender={message.sender}
             />
           ))}
-          {isTyping && (
+          {isTyping ? (
             <MessageBubble text="" sender="other" isLoading={isTyping} />
+          ) : (
+            questions.length > 0 &&
+            questions.map((question, index) => (
+              <Button
+                onClick={() => handleSendMessage(question)}
+                key={index}
+                variant="question"
+                className="mb-1 self-end"
+              >
+                {question}
+              </Button>
+            ))
           )}
+
           {/* Reference to scroll to the bottom */}
           <div ref={endOfMessagesRef} />
         </div>
       </ScrollArea>
-      <div className="flex flex-col items-center justify-center w-full p-4">
-        {questions.map((question, index) => (
-          <Button
-            onClick={() => handleSendMessage(question)}
-            key={index}
-            className="mb-1"
-          >
-            {question}
-          </Button>
-        ))}
-      </div>
+      <div className="flex flex-col items-center justify-center w-full p-4"></div>
     </div>
   );
 }

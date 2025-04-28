@@ -13,7 +13,7 @@ export default function Home() {
       <Wrapper>
         <div className="flex items-center justify-center md:justify-start w-full min-h-screen">
           <div className="flex flex-col mb-5 md:mb-0 gap-2 items-center md:items-start justify-center w-fit h-full">
-            <h1 className="text-[32px] md:text-[48px] lg:text-[64px] font-bebas-neue font-extrabold text-[#E7E7E7]">
+            <h1 className="text-[32px] md:text-[48px] lg:text-[64px] font-bebas-neue text-center font-extrabold text-[#E7E7E7]">
               FALE COM A FÚRIA E VIVA O GAME
             </h1>
             <p className="text-[16px] md:text-[20px] lg:text-[24px] max-w-[650px] text-center md:text-left font-bebas-neue font-light text-[#E7E7E7]">

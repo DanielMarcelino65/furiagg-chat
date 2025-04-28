@@ -26,6 +26,7 @@ export default function MessageBubble({
       {!isUser && (
         <Avatar
           src={FuriaLogo.src}
+          className="shadow-md"
           fallback="Furia GG"
           asChild
           alt="Foto da IA"
@@ -33,7 +34,7 @@ export default function MessageBubble({
       )}
       <div
         className={cn(
-          'px-2.5 py-3 rounded-lg w-fit h-fit max-w-[80%] md:max-w-[50%] break-words',
+          'px-2.5 py-3 rounded-lg shadow-md w-fit h-fit max-w-[80%] md:max-w-[50%] break-words',
           isUser ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black',
           isError && 'bg-red-500 text-white'
         )}
@@ -43,6 +44,7 @@ export default function MessageBubble({
       </div>
       {isUser && (
         <Avatar
+          className="shadow-md"
           alt="Foto do Usuário"
           fallback={User?.displayName as string}
           src={User?.photoURL as string}

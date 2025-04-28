@@ -19,7 +19,7 @@ export async function getOpenAIResponse(
   try {
     console.log(process.env.OPENAI_API_KEY);
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: process.env.NODE_ENV === 'production' ? 'gpt-4' : 'gpt-3.5-turbo',
       messages: [
         {
           role: 'system',
@@ -42,8 +42,8 @@ export async function getOpenAIResponse(
           - Link para estatísticas oficiais do time da FURIA: https://www.hltv.org/stats/teams/8297/furia.
           - A FURIA está começando a internacionalizar o time de CS, com a entrada de YEKINDAR e molodoy.
           - A FURIA ficou em terceiro lugar no IEM Rio Major 2022.
-          - Último campeonato importante: Perfect World Shanghai Major 2024 - Prize Pool = $1,250,000.
-          - Próximo campeonato importante:  PGL Astana 2025 - Prize Pool = $1,250,000.
+          - Último campeonato importante: Perfect World Shanghai Major 2024 - Prize Pool que levou pra casa = $20,000.
+          - Próximo campeonato importante:  PGL Astana 2025 - Prize Pool do campeonato = $1,250,000.
 
           Se o fã perguntar sobre estatísticas, históricos ou detalhes avançados, sugira que ele acesse o link oficial da HLTV.
 

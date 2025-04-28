@@ -4,11 +4,20 @@ import React from 'react';
 import { ButtonProps } from './types';
 import { cn } from '@/lib/utils';
 
-export default function Button({ children, className, ...props }: ButtonProps) {
+export default function Button({
+  children,
+  className,
+  variant = 'primary',
+  ...props
+}: ButtonProps) {
   return (
     <button
       className={cn(
-        `bg-[#E7E7E7] cursor-pointer hover:bg-[#E7E7E7B3] active:bg-[#E7E7E780] transition-all duration-150 text-black font-rubik font-semibold py-2 px-4 rounded-[8px]`,
+        `cursor-pointer  transition-all duration-150 font-rubik font-semibold py-2 px-4 rounded-[8px]`,
+        variant === 'primary' &&
+          'bg-[#E7E7E7] hover:bg-[#E7E7E7B3] active:bg-[#E7E7E780] text-black',
+        variant === 'question' &&
+          'bg-transparent border-2 border-blue-500 text-blue-500',
         className
       )}
       {...props}
