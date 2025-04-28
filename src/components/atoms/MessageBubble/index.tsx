@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { MessageBubbleProps } from './types';
 import { useUser } from '@/context/user';
 import FuriaLogo from '@/../public/images/furiagg-logo.png';
+import TypingIndicator from '../TypingIndicator';
 
 export default function MessageBubble({
   text,
@@ -32,12 +33,12 @@ export default function MessageBubble({
       )}
       <div
         className={cn(
-          'p-2 rounded-lg w-fit h-fit max-w-[80%] md:max-w-[50%] break-words',
-          isUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black',
-          isLoading && 'animate-pulse bg-gray-300',
+          'px-2.5 py-3 rounded-lg w-fit h-fit max-w-[80%] md:max-w-[50%] break-words',
+          isUser ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black',
           isError && 'bg-red-500 text-white'
         )}
       >
+        {isLoading && <TypingIndicator />}
         {text}
       </div>
       {isUser && (

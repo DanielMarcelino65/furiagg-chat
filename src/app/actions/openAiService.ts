@@ -7,10 +7,19 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-export async function getOpenAIResponse(userMessage: string, userName: string) {
+type OpenAIFormattedResponse = {
+  answer: string;
+  questions: string[];
+};
+
+export async function getOpenAIResponse(
+  userMessage: string,
+  userName?: string
+) {
   try {
+    console.log(process.env.OPENAI_API_KEY);
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4',
       messages: [
         {
           role: 'system',
@@ -45,6 +54,20 @@ export async function getOpenAIResponse(userMessage: string, userName: string) {
           Se o usuário perguntar algo fora do tema, avise educadamente que você responde apenas sobre o time de CS da FURIA.
 
           Sempre incentive o fã a continuar explorando o universo FURIA!
+
+          Sempre envie suas respostas no seguinte formato JSON:
+
+          {
+            "answer": "Texto da resposta principal aqui.",
+            "questions": [
+              "Primeira sugestão de nova pergunta",
+              "Segunda sugestão de nova pergunta",
+              "Terceira sugestão de nova pergunta"
+            ]
+          }
+
+          Não adicione texto fora do JSON. Apenas envie o JSON puro.
+
 `,
         },
         {
@@ -57,9 +80,15 @@ export async function getOpenAIResponse(userMessage: string, userName: string) {
       max_tokens: 500,
     });
 
-    return response.choices[0].message?.content ?? '';
+    const rawResponse = response.choices[0].message?.content ?? '';
+    const parsedResponse: OpenAIFormattedResponse = JSON.parse(rawResponse);
+
+    return parsedResponse;
   } catch (error) {
     console.error('Erro ao chamar OpenAI:', error);
-    return 'Opa! Tivemos um problema em nossa comunicação. Tente novamente!';
+    return {
+      answer: 'Opa! Tivemos um problema em nossa comunicação. Tente novamente!',
+      questions: [],
+    };
   }
 }

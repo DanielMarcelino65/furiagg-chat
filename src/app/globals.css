@@ -136,3 +136,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .animate-bounce {
+    animation: bounce 0.6s infinite alternate;
+  }
+
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+  }
+}
+
