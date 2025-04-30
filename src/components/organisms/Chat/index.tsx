@@ -5,7 +5,9 @@ import MessageBubble from '@/components/atoms/MessageBubble';
 import { MessageBubbleProps } from '@/components/atoms/MessageBubble/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import React, { useEffect, useRef, useState } from 'react';
-
+import { scrollTo } from '@/utils/scrollTo';
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
 const initialMessages: MessageBubbleProps[] = [
   {
     text: `🐾 Fala, guerreiro(a)! Bem-vindo(a) ao universo FÚRIA! 🖤🔥
@@ -28,58 +30,162 @@ const recommendedQuestions = [
 ];
 export default function Chat() {
   const [questions, setQuestions] = useState<string[]>(recommendedQuestions);
+  const [previousQuestions, setPreviousQuestions] = useState<string[]>([]);
   const [messages, setMessages] =
     useState<MessageBubbleProps[]>(initialMessages);
   const [isTyping, setIsTyping] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   useEffect(() => {
-    scrollToBottom();
+    scrollTo(endOfMessagesRef);
   }, [messages]);
 
-  const handleSendMessage = async (question: string) => {
-    setMessages((prev) => [...prev, { text: question, sender: 'User' }]);
+  const handleSendMessage = async (selectedQuestion: string) => {
+    if (isTyping) return;
+    // if (true) {
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     { text: selectedQuestion, sender: 'User' },
+    //   ]);
+    //   setIsTyping(true);
+    //   setTimeout(() => {
+    //     setMessages((prev) => [
+    //       ...prev,
+    //       { text: `Resposta teste para ${selectedQuestion}`, sender: 'other' },
+    //     ]);
+    //     setIsTyping(false);
+    //   }, 2000);
+    //   return;
+    // }
+
+    setMessages((prev) => [
+      ...prev,
+      { text: selectedQuestion, sender: 'User' },
+    ]);
     setIsTyping(true);
 
-    const response = await getOpenAIResponse(question);
+    const response = await getOpenAIResponse(selectedQuestion);
 
     setMessages((prev) => [
       ...prev,
       { text: response.answer, sender: 'other' },
     ]);
-    setQuestions(response.questions);
+
+    if (questions.includes(selectedQuestion)) {
+      // Se clicou numa pergunta atual ➔ atualiza para novas perguntas sugeridas
+      setPreviousQuestions(
+        questions.filter((question) => question !== selectedQuestion)
+      );
+      setQuestions(response.questions); // novas perguntas!
+    } else {
+      // Se clicou numa pergunta do histórico ➔ apenas remove a escolhida
+      setPreviousQuestions((prev) =>
+        prev.filter((question) => question !== selectedQuestion)
+      );
+      // NÃO altera questions!
+    }
+
+    setShowHistory(false);
     setIsTyping(false);
   };
 
   return (
     <div className="flex flex-col md:items-center pt-24 justify-center w-full min-h-screen relative bg-black">
-      <ScrollArea className="text-black h-[85vh] w-[100vw] bg-[#E7E7E7] rounded-lg shadow-lg">
-        <div className="flex flex-col w-[90vw] md:w-[100vw] items-center h-full pt-4 px-2 lg:px-16">
+      <ScrollArea className="text-black h-[85vh] w-[100vw] bg-transparent rounded-lg shadow-lg">
+        <div className="flex flex-col w-[90vw] md:w-[100vw] items-center h-full pt-4 px-2 lg:px-20">
           {messages.map((message, index) => (
-            <MessageBubble
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+              }}
+              className={cn(
+                'flex items-center justify-end w-full h-fit gap-1.5 my-2',
+                message.sender === 'User' ? 'justify-end' : 'justify-start'
+              )}
               key={index}
-              text={message.text}
-              sender={message.sender}
-            />
+            >
+              <MessageBubble text={message.text} sender={message.sender} />
+            </motion.div>
           ))}
-          {isTyping ? (
-            <MessageBubble text="" sender="other" isLoading={isTyping} />
-          ) : (
+          {isTyping && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              className={cn(
+                'flex items-center justify-end w-full h-fit gap-1.5 my-2',
+                'justify-start'
+              )}
+            >
+              <MessageBubble text="" sender="other" isLoading={isTyping} />
+            </motion.div>
+          )}
+          {!isTyping &&
             questions.length > 0 &&
-            questions.map((question, index) => (
-              <Button
-                onClick={() => handleSendMessage(question)}
-                key={index}
-                variant="question"
-                className="mb-1 self-end"
+            questions
+              .sort((a, b) => b.length - a.length)
+              .map((question, index) => (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.5 + index * 0.1,
+                  }}
+                  className="flex items-center justify-end w-full h-fit gap-1.5 py-2"
+                  key={index}
+                >
+                  <Button
+                    onClick={() => handleSendMessage(question)}
+                    variant="question"
+                  >
+                    {question}
+                  </Button>
+                </motion.div>
+              ))}
+          {!isTyping && previousQuestions.length > 0 && (
+            <>
+              {showHistory &&
+                previousQuestions.map((question, index) => (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.2 + index * 0.1,
+                    }}
+                    key={index}
+                    className="flex items-center justify-end w-full h-fit gap-1.5 py-2"
+                  >
+                    <Button
+                      onClick={() => handleSendMessage(question)}
+                      variant="question"
+                      className="mb-1 self-end"
+                    >
+                      {question}
+                    </Button>
+                  </motion.div>
+                ))}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                className="flex items-center justify-end w-full h-fit gap-1.5 my-2"
               >
-                {question}
-              </Button>
-            ))
+                <Button
+                  onClick={() => setShowHistory(!showHistory)}
+                  variant="question"
+                  className="mb-1 self-end"
+                >
+                  {showHistory
+                    ? 'Esconder perguntas'
+                    : 'Ver perguntas anteriores'}
+                </Button>
+              </motion.div>
+            </>
           )}
 
           {/* Reference to scroll to the bottom */}

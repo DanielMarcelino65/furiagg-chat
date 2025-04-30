@@ -17,7 +17,6 @@ export async function getOpenAIResponse(
   userName?: string
 ) {
   try {
-    console.log(process.env.OPENAI_API_KEY);
     const response = await openai.chat.completions.create({
       model: process.env.NODE_ENV === 'production' ? 'gpt-4' : 'gpt-3.5-turbo',
       messages: [
@@ -66,7 +65,7 @@ export async function getOpenAIResponse(
             ]
           }
 
-          Não adicione texto fora do JSON. Apenas envie o JSON puro.
+          Não adicione texto fora do JSON. Apenas envie o JSON puro. Não adicione explicações ou informações adicionais. Não adicione emojis fora do JSON. Não adicione formatação de texto fora do JSON. Não adicione quebras de linha fora do JSON. Não adicione espaços em branco fora do JSON. Não adicione nada além do JSON.
 
 `,
         },

@@ -18,7 +18,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
-      console.log(user);
     });
 
     // Limpa a inscrição ao desmontar

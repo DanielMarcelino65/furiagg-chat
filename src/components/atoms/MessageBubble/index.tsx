@@ -17,12 +17,7 @@ export default function MessageBubble({
   const isUser = sender === 'User';
 
   return (
-    <div
-      className={cn(
-        'flex items-center justify-end w-full h-fit gap-1.5 my-2',
-        isUser ? 'justify-end' : 'justify-start'
-      )}
-    >
+    <>
       {!isUser && (
         <Avatar
           src={FuriaLogo.src}
@@ -50,6 +45,6 @@ export default function MessageBubble({
           src={User?.photoURL as string}
         />
       )}
-    </div>
+    </>
   );
 }
