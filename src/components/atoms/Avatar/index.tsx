@@ -7,6 +7,15 @@ import {
 import { cn } from '@/lib/utils';
 import { AvatarProps } from './types';
 
+/**
+ * Avatar component to display user profile images.
+ *
+ * @param {string} src - The source URL of the image.
+ * @param {string} alt - The alternative text for the image.
+ * @param {string} className - Additional class names for styling.
+ * @param {string} fallback - Fallback text if the image fails to load.
+ * @returns {JSX.Element} The Avatar component.
+ */
 export default function Avatar({ src, alt, className, fallback }: AvatarProps) {
   return (
     <ShadAvatar className={cn('', className)}>

@@ -3,6 +3,11 @@
 
 import React from 'react';
 
+/**
+ * TypingIndicator component to show a typing animation.
+ *
+ * @returns {JSX.Element} The TypingIndicator component.
+ */
 export default function TypingIndicator() {
   return (
     <div className="flex items-center h-4 space-x-1">

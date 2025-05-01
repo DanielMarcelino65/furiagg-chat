@@ -7,6 +7,11 @@ import FallenPhoto from '@/../public/images/fallen-photo-upscale.png';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 
+/**
+ * Home component for the landing page of the application.
+ *
+ * @returns {JSX.Element} The Home component.
+ */
 export default function Home() {
   return (
     <>

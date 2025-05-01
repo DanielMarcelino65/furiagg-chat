@@ -7,6 +7,15 @@ import { useUser } from '@/context/user';
 import FuriaLogo from '@/../public/images/furiagg-logo.png';
 import TypingIndicator from '../TypingIndicator';
 
+/**
+ * MessageBubble component to display chat messages.
+ *
+ * @param {string} text - The message text.
+ * @param {string} sender - The sender of the message (User or AI).
+ * @param {boolean} isLoading - Indicates if the message is loading.
+ * @param {boolean} isError - Indicates if there was an error with the message.
+ * @returns {JSX.Element} The MessageBubble component.
+ */
 export default function MessageBubble({
   text,
   sender,

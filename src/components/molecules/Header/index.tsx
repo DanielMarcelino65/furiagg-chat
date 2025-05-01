@@ -18,6 +18,11 @@ import {
 import { motion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 
+/**
+ * Header component for the application.
+ *
+ * @returns {JSX.Element} The Header component.
+ */
 export default function Header() {
   const { User } = useUser();
   const router = useRouter();

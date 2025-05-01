@@ -1,4 +1,6 @@
 'use server';
+//Actions are used to "POST" data to the server. They are executed on the server and can be used to perform server-side logic, such as database operations or API calls.
+// This file is responsible for communicating with the OpenAI API to get responses based on user input.
 
 import { OpenAI } from 'openai';
 

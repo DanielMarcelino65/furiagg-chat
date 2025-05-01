@@ -7,6 +7,15 @@ type LinkProps = {
   asChild?: boolean;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
+/**
+ * Link component for navigation and interaction.
+ *
+ * @param {React.ReactNode} children - The content of the link.
+ * @param {string} className - Additional class names for styling.
+ * @param {boolean} asChild - If true, renders as a child component.
+ * @param {React.AnchorHTMLAttributes<HTMLAnchorElement>} props - Other link attributes.
+ * @returns {JSX.Element} The Link component.
+ */
 const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   ({ children, className, asChild = false, ...props }, ref) => {
     const Component = asChild ? Slot : 'a';

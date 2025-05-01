@@ -32,7 +32,13 @@ const recommendedQuestions = [
   'Como está o desempenho do FalleN na temporada atual?',
 ];
 
+/**
+ * Chat component for interacting with the FURIA Esports AI assistant.
+ *
+ * @returns {JSX.Element} The Chat component.
+ */
 export default function Chat() {
+  // State variables to manage chat messages, questions, and typing status
   const [questions, setQuestions] = usePersistedState<string[]>(
     'furia_questions',
     recommendedQuestions
@@ -49,6 +55,7 @@ export default function Chat() {
   const [showHistory, setShowHistory] = useState(false);
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
+  // useEffect to scroll to the bottom of the chat area when messages change
   useEffect(() => {
     scrollTo(endOfMessagesRef);
   }, [messages]);
@@ -57,25 +64,25 @@ export default function Chat() {
     if (isTyping) return;
 
     //This block is for testing purposes, to simulate a response from the AI
-    if (true) {
-      setMessages((prev) => [
-        ...prev,
-        { text: selectedQuestion, sender: 'User' },
-      ]);
-      setIsTyping(true);
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          { text: `Resposta teste para ${selectedQuestion}`, sender: 'other' },
-        ]);
-        setIsTyping(false);
-      }, 2000);
-      setShowHistory(false);
-      setPreviousQuestions(
-        questions.filter((question) => question !== selectedQuestion)
-      );
-      return;
-    }
+    // if (true) {
+    //   setMessages((prev) => [
+    //     ...prev,
+    //     { text: selectedQuestion, sender: 'User' },
+    //   ]);
+    //   setIsTyping(true);
+    //   setTimeout(() => {
+    //     setMessages((prev) => [
+    //       ...prev,
+    //       { text: `Resposta teste para ${selectedQuestion}`, sender: 'other' },
+    //     ]);
+    //     setIsTyping(false);
+    //   }, 2000);
+    //   setShowHistory(false);
+    //   setPreviousQuestions(
+    //     questions.filter((question) => question !== selectedQuestion)
+    //   );
+    //   return;
+    // }
 
     setMessages((prev) => [
       ...prev,
