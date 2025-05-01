@@ -6,7 +6,7 @@ Este projeto é uma simulação de um chat interativo com a FURIA Esports, focad
 
 ## 🧠 Funcionalidades
 
-- 💬 Chat com IA (OpenAI GPT-3.5) focado **exclusivamente no time de CS da FURIA**
+- 💬 Chat com IA (OpenAI GPT-4) focado **exclusivamente no time de CS da FURIA**
 - 🔄 Persistência de conversa via `localStorage`, mesmo após recarregar a página
 - 💡 Sugestões de perguntas dinâmicas e botão para acessar perguntas anteriores
 - 🤖 Detecção de perguntas repetidas e controle inteligente do histórico
