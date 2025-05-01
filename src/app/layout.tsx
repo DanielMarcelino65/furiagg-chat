@@ -34,7 +34,9 @@ export default function RootLayout({
       <Head>
         <meta name="apple-mobile-web-app-title" content="FuriaGG" />
       </Head>
-      <body className={`${bebasNeue.variable} ${rubik.variable} antialiased`}>
+      <body
+        className={`${bebasNeue.variable} ${rubik.variable} antialiased overflow-hidden`}
+      >
         <UserProvider>
           <Header />
           {children}

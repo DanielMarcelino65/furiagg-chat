@@ -20,7 +20,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       setLoading(false);
     });
 
-    // Limpa a inscrição ao desmontar
+    // Cleanup function to unsubscribe from the listener
     return () => unsubscribe();
   }, []);
 

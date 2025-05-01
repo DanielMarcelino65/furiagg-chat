@@ -6,8 +6,10 @@ import { MessageBubbleProps } from '@/components/atoms/MessageBubble/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import React, { useEffect, useRef, useState } from 'react';
 import { scrollTo } from '@/utils/scrollTo';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { usePersistedState } from '@/hooks/usePersistedState';
+
 const initialMessages: MessageBubbleProps[] = [
   {
     text: `🐾 Fala, guerreiro(a)! Bem-vindo(a) ao universo FÚRIA! 🖤🔥
@@ -23,16 +25,26 @@ const initialMessages: MessageBubbleProps[] = [
     sender: 'other',
   },
 ];
+
 const recommendedQuestions = [
   'Qual é a escalação atual da FURIA CS?',
   'Quais são os próximos campeonatos importantes da FURIA CS?',
   'Como está o desempenho do FalleN na temporada atual?',
 ];
+
 export default function Chat() {
-  const [questions, setQuestions] = useState<string[]>(recommendedQuestions);
-  const [previousQuestions, setPreviousQuestions] = useState<string[]>([]);
-  const [messages, setMessages] =
-    useState<MessageBubbleProps[]>(initialMessages);
+  const [questions, setQuestions] = usePersistedState<string[]>(
+    'furia_questions',
+    recommendedQuestions
+  );
+  const [previousQuestions, setPreviousQuestions] = usePersistedState<string[]>(
+    'furia_previousQuestions',
+    []
+  );
+  const [messages, setMessages] = usePersistedState<MessageBubbleProps[]>(
+    'furia_messages',
+    initialMessages
+  );
   const [isTyping, setIsTyping] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
@@ -43,21 +55,27 @@ export default function Chat() {
 
   const handleSendMessage = async (selectedQuestion: string) => {
     if (isTyping) return;
-    // if (true) {
-    //   setMessages((prev) => [
-    //     ...prev,
-    //     { text: selectedQuestion, sender: 'User' },
-    //   ]);
-    //   setIsTyping(true);
-    //   setTimeout(() => {
-    //     setMessages((prev) => [
-    //       ...prev,
-    //       { text: `Resposta teste para ${selectedQuestion}`, sender: 'other' },
-    //     ]);
-    //     setIsTyping(false);
-    //   }, 2000);
-    //   return;
-    // }
+
+    //This block is for testing purposes, to simulate a response from the AI
+    if (true) {
+      setMessages((prev) => [
+        ...prev,
+        { text: selectedQuestion, sender: 'User' },
+      ]);
+      setIsTyping(true);
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { text: `Resposta teste para ${selectedQuestion}`, sender: 'other' },
+        ]);
+        setIsTyping(false);
+      }, 2000);
+      setShowHistory(false);
+      setPreviousQuestions(
+        questions.filter((question) => question !== selectedQuestion)
+      );
+      return;
+    }
 
     setMessages((prev) => [
       ...prev,
@@ -73,17 +91,17 @@ export default function Chat() {
     ]);
 
     if (questions.includes(selectedQuestion)) {
-      // Se clicou numa pergunta atual ➔ atualiza para novas perguntas sugeridas
+      // If clicked on a new question ➔ remove from questions and add to history
       setPreviousQuestions(
         questions.filter((question) => question !== selectedQuestion)
       );
       setQuestions(response.questions); // novas perguntas!
     } else {
-      // Se clicou numa pergunta do histórico ➔ apenas remove a escolhida
+      // If clicked on a previous question ➔ remove from history and keep questions
       setPreviousQuestions((prev) =>
         prev.filter((question) => question !== selectedQuestion)
       );
-      // NÃO altera questions!
+      // Do not update questions, keep the same ones
     }
 
     setShowHistory(false);
@@ -91,9 +109,12 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col md:items-center pt-24 justify-center w-full min-h-screen relative bg-black">
+    <div className="flex flex-col md:items-center pt-24 justify-center w-full min-h-screen overflow-hidden relative bg-black">
       <ScrollArea className="text-black h-[85vh] w-[100vw] bg-transparent rounded-lg shadow-lg">
-        <div className="flex flex-col w-[90vw] md:w-[100vw] items-center h-full pt-4 px-2 lg:px-20">
+        <motion.div
+          layout="preserve-aspect"
+          className="flex flex-col w-full items-center h-full pt-4 px-2 lg:px-20"
+        >
           {messages.map((message, index) => (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -135,7 +156,7 @@ export default function Chat() {
                     duration: 0.4,
                     delay: 0.5 + index * 0.1,
                   }}
-                  className="flex items-center justify-end w-full h-fit gap-1.5 py-2"
+                  className="flex items-center justify-end w-full h-fit mb-4"
                   key={index}
                 >
                   <Button
@@ -148,37 +169,45 @@ export default function Chat() {
               ))}
           {!isTyping && previousQuestions.length > 0 && (
             <>
-              {showHistory &&
-                previousQuestions.map((question, index) => (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: 0.2 + index * 0.1,
-                    }}
-                    key={index}
-                    className="flex items-center justify-end w-full h-fit gap-1.5 py-2"
-                  >
-                    <Button
-                      onClick={() => handleSendMessage(question)}
-                      variant="question"
-                      className="mb-1 self-end"
+              <AnimatePresence>
+                {showHistory &&
+                  previousQuestions.map((question, index) => (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 20 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.2 + index * 0.1,
+                      }}
+                      key={index}
+                      className="flex items-center justify-end w-full h-fit mb-4"
                     >
-                      {question}
-                    </Button>
-                  </motion.div>
-                ))}
+                      <Button
+                        onClick={() => handleSendMessage(question)}
+                        variant="question"
+                        className="self-end"
+                      >
+                        {question}
+                      </Button>
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.4 }}
-                className="flex items-center justify-end w-full h-fit gap-1.5 my-2"
+                transition={{ duration: 0.4, delay: 0.8 }}
+                className="flex items-center justify-end w-full h-fit"
               >
                 <Button
-                  onClick={() => setShowHistory(!showHistory)}
+                  onClick={() => {
+                    setShowHistory(!showHistory);
+                    setTimeout(() => {
+                      scrollTo(endOfMessagesRef);
+                    }, 300);
+                  }}
                   variant="question"
-                  className="mb-1 self-end"
+                  className="self-end"
                 >
                   {showHistory
                     ? 'Esconder perguntas'
@@ -190,7 +219,7 @@ export default function Chat() {
 
           {/* Reference to scroll to the bottom */}
           <div ref={endOfMessagesRef} />
-        </div>
+        </motion.div>
       </ScrollArea>
       <div className="flex flex-col items-center justify-center w-full p-4"></div>
     </div>
