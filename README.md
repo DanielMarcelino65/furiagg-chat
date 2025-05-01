@@ -18,8 +18,8 @@ Este projeto é uma simulação de um chat interativo com a FURIA Esports, focad
 
 ## 🔧 Tecnologias utilizadas
 
-- [Next.js 14](https://nextjs.org/)
-- [React 18](https://react.dev/)
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Motion](https://motion.dev/)
 - [OpenAI API (GPT-4)](https://platform.openai.com/)
