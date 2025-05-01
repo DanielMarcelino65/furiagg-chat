@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 FURIA Fan Chat — Experiência Interativa com o Time de CS
 
-## Getting Started
+Este projeto é uma simulação de um chat interativo com a FURIA Esports, focado no time de Counter-Strike. O objetivo é criar uma experiência imersiva para os fãs, permitindo que descubram curiosidades, estatísticas e conquistas do time de forma divertida, responsiva e animada.
 
-First, run the development server:
+---
 
+## 🧠 Funcionalidades
+
+- 💬 Chat com IA (OpenAI GPT-3.5) focado **exclusivamente no time de CS da FURIA**
+- 🔄 Persistência de conversa via `localStorage`, mesmo após recarregar a página
+- 💡 Sugestões de perguntas dinâmicas e botão para acessar perguntas anteriores
+- 🤖 Detecção de perguntas repetidas e controle inteligente do histórico
+- ✨ Animações suaves com Framer Motion para mensagens e botões
+- 📱 Interface responsiva e acessível para desktop e mobile
+- 💻 Código limpo, organizado e totalmente documentado com JSDoc
+
+---
+
+## 🔧 Tecnologias utilizadas
+
+- [Next.js 14](https://nextjs.org/)
+- [React 18](https://react.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Motion](https://motion.dev/)
+- [OpenAI API (GPT-4)](https://platform.openai.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+---
+
+## 🚀 Como rodar localmente
+
+1. **Clone o repositório**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/DanielMarcelino65/furiagg-chat.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instale as dependências**
+```bash
+pnpm install
+# ou
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Adicione sua chave da OpenAI no `.env`**
+```
+OPENAI_API_KEY=sk-sua-chave-aqui
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Adicione suas informações do FIrebase no `.env`**
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+```
 
-## Learn More
+5. **Execute o projeto**
+```bash
+pnpm dev
+# ou
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📹 Demonstração em vídeo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> 🎥 [Assista à demo clicando aqui](https://link-do-video.com)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🧪 Diferenciais implementados
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ Persistência do chat sem obrigar login (especialmente devido aos testes que deverão ser realizados)
+- ✅ Estrutura modular com componentes reutilizáveis e tipados
+- ✅ Fluxo de usuário limpo, sem repetições ou loops confusos
+- ✅ UX aprimorada com animações suaves
+- ✅ Código documentado com comentários e JSDoc para fácil manutenção
+- ✅ Controle inteligente de histórico de perguntas
+- ✅ Perguntas feitas são geradas pela própria AI, baseado em possíveis interesses de um fã
+
+---
+
+## 🛡️ Observação
+
+Este projeto é uma **simulação interativa**. Algumas respostas podem não refletir dados oficiais em tempo real.  
+
+---
+
+## 🙋‍♂️ Autor
+
+Desenvolvido por **Daniel Marcelino** — estudante de Engenharia da Computação
+📧 [www.linkedin.com/in/danielmarcelino65](www.linkedin.com/in/danielmarcelino65)
+
+---
+
+## 📦 Deploy
+
+> 🌐 [Acesse o projeto online aqui](https://furia-fan-chat.vercel.app)
+
+---
+
+## 📝 Licença
+
+Este projeto é livre para fins acadêmicos e de portfólio.
+
+---
+
+**GL HF** 🖤
