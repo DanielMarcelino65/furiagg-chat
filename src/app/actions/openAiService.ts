@@ -89,7 +89,11 @@ export async function getOpenAIResponse(
     console.error('Erro ao chamar OpenAI:', error);
     return {
       answer: 'Opa! Tivemos um problema em nossa comunicação. Tente novamente!',
-      questions: [],
+      questions: [
+        'Qual é a escalação atual da FURIA CS?',
+        'Quais são os próximos campeonatos importantes da FURIA CS?',
+        'Como está o desempenho do FalleN na temporada atual?',
+      ],
     };
   }
 }
