@@ -1,4 +1,4 @@
-import HomePage from '@/components/organisms/Home';
+import HomePage from '@/components/pages/Home';
 
 // This is the main page for the home application
 export default function Page() {

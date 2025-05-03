@@ -1,4 +1,4 @@
-import Chat from '@/components/organisms/Chat';
+import Chat from '@/components/pages/Chat';
 import React from 'react';
 
 // This is the main page for the chat application
