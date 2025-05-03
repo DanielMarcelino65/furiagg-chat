@@ -91,7 +91,7 @@ Este projeto é uma **simulação interativa**. Algumas respostas podem não ref
 
 ## 🙋‍♂️ Autor
 
-Desenvolvido por **Daniel Marcelino** — estudante de Engenharia da Computação
+Desenvolvido por **Daniel Marcelino**
 📧 [www.linkedin.com/in/danielmarcelino65](www.linkedin.com/in/danielmarcelino65)
 
 ---
