@@ -30,11 +30,13 @@ Este projeto é uma simulação de um chat interativo com a FURIA Esports, focad
 ## 🚀 Como rodar localmente
 
 1. **Clone o repositório**
+
 ```bash
 git clone https://github.com/DanielMarcelino65/furiagg-chat.git
 ```
 
 2. **Instale as dependências**
+
 ```bash
 pnpm install
 # ou
@@ -42,11 +44,13 @@ npm install
 ```
 
 3. **Adicione sua chave da OpenAI no `.env`**
+
 ```
 OPENAI_API_KEY=sk-sua-chave-aqui
 ```
 
 4. **Adicione suas informações do FIrebase no `.env`**
+
 ```
 NEXT_PUBLIC_FIREBASE_API_KEY=
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
@@ -58,17 +62,12 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
 ```
 
 5. **Execute o projeto**
+
 ```bash
 pnpm dev
 # ou
 npm run dev
 ```
-
----
-
-## 📹 Demonstração em vídeo
-
-> 🎥 [Assista à demo clicando aqui](https://link-do-video.com)
 
 ---
 
@@ -86,7 +85,7 @@ npm run dev
 
 ## 🛡️ Observação
 
-Este projeto é uma **simulação interativa**. Algumas respostas podem não refletir dados oficiais em tempo real.  
+Este projeto é uma **simulação interativa**. Algumas respostas podem não refletir dados oficiais em tempo real.
 
 ---
 
@@ -94,12 +93,6 @@ Este projeto é uma **simulação interativa**. Algumas respostas podem não ref
 
 Desenvolvido por **Daniel Marcelino** — estudante de Engenharia da Computação
 📧 [www.linkedin.com/in/danielmarcelino65](www.linkedin.com/in/danielmarcelino65)
-
----
-
-## 📦 Deploy
-
-> 🌐 [Acesse o projeto online aqui](https://furiagg-chat.vercel.app/)
 
 ---
 
