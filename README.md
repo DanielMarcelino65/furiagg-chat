@@ -99,7 +99,7 @@ Desenvolvido por **Daniel Marcelino** — estudante de Engenharia da Computaçã
 
 ## 📦 Deploy
 
-> 🌐 [Acesse o projeto online aqui](https://furia-fan-chat.vercel.app)
+> 🌐 [Acesse o projeto online aqui](https://furiagg-chat.vercel.app/)
 
 ---
 
